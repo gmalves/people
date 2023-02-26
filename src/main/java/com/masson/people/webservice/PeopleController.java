@@ -1,6 +1,6 @@
 package com.masson.people.webservice;
 
-import com.masson.people.business.PeopleService;
+import com.masson.people.business.service.PeopleService;
 import com.masson.people.webservice.request.PeopleRequest;
 import com.masson.people.webservice.response.PeopleResponse;
 import org.springframework.beans.factory.annotation.Autowired;

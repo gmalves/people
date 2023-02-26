@@ -3,13 +3,13 @@ spring:
     hibernate:
       dll-auto: update
   datasource:
-    url: jdbc:mysql://localhost:3306/db
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/db?autoReconnect=true&useSSL=false}
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
   kafka:
     producer:
-      bootstrap-servers: localhost:9092
+      bootstrap-servers: ${SPRING_BOOTSTRAP_URL:localhost:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 topic:

@@ -1,4 +1,4 @@
-package com.masson.people.business;
+package com.masson.people.business.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,7 +35,7 @@ public class PeopleService {
 
     private People createPeople(People people) {
         var peopleCreated = peopleRepository.save(people);
-        peopleProducer.sendMessage("teste");
+        peopleProducer.sendMessage(peopleCreated.getDocument());
         return peopleCreated;
     }
 
