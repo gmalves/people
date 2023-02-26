@@ -1,12 +1,11 @@
 package com.masson.people.third_party.viacep;
 
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.masson.people.business.exception.ZipCodeNotFoundException;
 import com.masson.people.third_party.config.HttpServerClient;
 import com.masson.people.third_party.viacep.response.AddressResponse;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -24,12 +23,15 @@ public class ViaCepClient extends HttpServerClient {
                     .build();
 
             var response = client().send(request, HttpResponse.BodyHandlers.ofString());
-            return new ObjectMapper().readValue(response.body(), AddressResponse.class);
-        } catch (JsonMappingException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (InterruptedException e) {
+            switch (response.statusCode()){
+                case 200:
+                    return new ObjectMapper().readValue(response.body(), AddressResponse.class);
+                case 400:
+                    throw new ZipCodeNotFoundException();
+                default:
+                    throw new RuntimeException();
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
