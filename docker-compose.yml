@@ -1,5 +1,17 @@
 version: '3.3'
 services:
+  app:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     container_name: people
+     depends_on:
+       - db
+       - kafka
+     networks:
+       - general
+     ports:
+       - "8080:8080"
   db:
     image: mysql:5.7
     restart: always
@@ -8,6 +20,8 @@ services:
       MYSQL_USER: 'user'
       MYSQL_PASSWORD: 'password'
       MYSQL_ROOT_PASSWORD: 'password'
+    networks:
+      - general
     ports:
       - '3306:3306'
     expose:
@@ -17,7 +31,7 @@ services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
     networks:
-      - broker-kafka
+      - general
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -25,7 +39,7 @@ services:
   kafka:
     image: confluentinc/cp-kafka:latest
     networks:
-      - broker-kafka
+      - general
     depends_on:
       - zookeeper
     ports:
@@ -41,7 +55,7 @@ services:
   kafdrop:
     image: obsidiandynamics/kafdrop:latest
     networks:
-      - broker-kafka
+      - general
     depends_on:
       - kafka
     ports:
@@ -50,7 +64,7 @@ services:
       KAFKA_BROKERCONNECT: kafka:29092
 
 networks:
-  broker-kafka:
+  general:
     driver: bridge
 
 volumes:
