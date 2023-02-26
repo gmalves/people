@@ -1,14 +1,10 @@
 package com.masson.people.business.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masson.people.business.domain.Address;
 import com.masson.people.business.domain.People;
 import com.masson.people.business.repository.AddressFinder;
 import com.masson.people.business.repository.PeopleProducer;
 import com.masson.people.business.repository.PeopleRepository;
-import com.masson.people.messaging.PeopleProducerImp;
-import com.masson.people.webservice.request.PeopleRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
