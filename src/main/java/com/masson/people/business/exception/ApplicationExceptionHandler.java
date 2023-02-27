@@ -1,6 +1,9 @@
 package com.masson.people.business.exception;
 
 import com.masson.people.business.exception.response.DefaultError;
+import com.masson.people.business.service.PeopleService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -10,8 +13,11 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler {
 
+    private static Logger logger = LoggerFactory.getLogger(ApplicationExceptionHandler.class);
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity handleException(Exception e){
+        logger.info("Application error " + e);
         if(e.getCause() instanceof ZipCodeNotFoundException){
             return respond(HttpStatus.NOT_FOUND, "CEP não encontrado");
         } else if (e instanceof RegisteredPeopleException) {

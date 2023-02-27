@@ -7,12 +7,15 @@ import com.masson.people.business.exception.RegisteredPeopleException;
 import com.masson.people.business.repository.AddressFinder;
 import com.masson.people.business.repository.PeopleProducer;
 import com.masson.people.business.repository.PeopleRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PeopleService {
 
+    private static Logger logger = LoggerFactory.getLogger(PeopleService.class);
     @Autowired
     private AddressFinder addressFinder;
 
@@ -23,6 +26,7 @@ public class PeopleService {
     private PeopleProducer peopleProducer;
 
     public People create(People people){
+        logger.info("Starting create people with document " + people.getDocument());
         var peopleFound = peopleRepository.findByDocument(people.getDocument());
         if(peopleFound != null ) throw new RegisteredPeopleException();
         var addressFound = addressFinder.findByZipCode(people.getAddress().getZipCode());
@@ -30,12 +34,14 @@ public class PeopleService {
     }
 
     public People findByDocument(String document){
+        logger.info("Find people with document " + document);
         var peopleFound = peopleRepository.findByDocument(document);
         if(peopleFound == null) throw new PeopleNotFoundException();
         return peopleFound;
     }
 
     private People createPeople(People people) {
+        logger.info("Saving people with document " + people.getDocument());
         var peopleCreated = peopleRepository.save(people);
 /*
 *
