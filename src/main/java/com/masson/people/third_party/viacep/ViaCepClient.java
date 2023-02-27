@@ -2,7 +2,6 @@ package com.masson.people.third_party.viacep;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.masson.people.business.exception.ZipCodeNotFoundException;
-import com.masson.people.third_party.adapter.AddressAdapter;
 import com.masson.people.third_party.config.HttpServerClient;
 import com.masson.people.third_party.viacep.response.AddressResponse;
 import org.slf4j.Logger;
