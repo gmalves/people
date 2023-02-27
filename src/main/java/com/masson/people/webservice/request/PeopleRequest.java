@@ -1,5 +1,7 @@
 package com.masson.people.webservice.request;
 
+import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.masson.people.business.domain.People;
 
 import java.time.LocalDate;
@@ -10,7 +12,9 @@ public class PeopleRequest {
     private String document;
     private String phone;
     private LocalDate birthdate;
+    @JsonProperty("zip_code")
     private String zipCode;
+    @JsonProperty("address_number")
     private Long addressNumber;
 
     public PeopleRequest() { }

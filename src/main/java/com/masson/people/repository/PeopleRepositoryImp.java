@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PeopleRepositoryMysql extends JpaRepository<PeopleEntity, Long> {
+public interface PeopleRepositoryImp extends JpaRepository<PeopleEntity, Long> {
 
     Optional<PeopleEntity> findByDocument(String document);
 }

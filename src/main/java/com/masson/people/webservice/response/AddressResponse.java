@@ -1,11 +1,14 @@
 package com.masson.people.webservice.response;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AddressResponse {
     private String street;
     private String complement;
     private String district;
     private String city;
     private String state;
+    @JsonProperty("zip_code")
     private String zipCode;
     private Long number;
 
