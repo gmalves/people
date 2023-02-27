@@ -14,8 +14,8 @@ services:
        - "8080:8080"
      environment:
        SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db?autoReconnect=true&useSSL=false
-       SPRING_BOOTSTRAP_URL: kafka:9092
-       SPRING_KAFKA_ENABLED: disabled
+       SPRING_BOOTSTRAP_URL: kafka:29092
+       SPRING_KAFKA_ENABLED: enabled
 
   db:
     image: mysql
