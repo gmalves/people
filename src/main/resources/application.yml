@@ -14,8 +14,10 @@ spring:
 people:
   url:
     via-cep: https://viacep.com.br/ws/{zipcode}/json
-  topic:
-    people-created: people-created
+  kafka:
+    enabled: ${SPRING_KAFKA_ENABLED:enabled}
+    topic:
+      people-created: people-created
 
 loggin:
   level:

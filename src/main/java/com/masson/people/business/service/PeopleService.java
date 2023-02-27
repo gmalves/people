@@ -10,12 +10,16 @@ import com.masson.people.business.repository.PeopleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PeopleService {
 
     private static Logger logger = LoggerFactory.getLogger(PeopleService.class);
+
+    @Value("${people.kafka.enabled}")
+    private String kafkaFlag;
     @Autowired
     private AddressFinder addressFinder;
 
@@ -43,13 +47,8 @@ public class PeopleService {
     private People createPeople(People people) {
         logger.info("Saving people with document " + people.getDocument());
         var peopleCreated = peopleRepository.save(people);
-/*
-*
-*       NÃO FUNCIONOU QUANDO SUBIDO VIA DOCKER, SE SUBIR LOCAL FUNCIONA
-*       POR ALGUM MOTIVO NÃO CONSEGUE ESTABELE CONEXÃO
-*
-*/
-//        peopleProducer.sendMessage(peopleCreated.getDocument());
+        if(kafkaFlag.equals("enabled")) peopleProducer.sendMessage(peopleCreated.getDocument());
+        else logger.warn("Kafka disabled");
         return peopleCreated;
     }
 
