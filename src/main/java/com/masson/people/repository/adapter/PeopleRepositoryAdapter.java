@@ -21,6 +21,7 @@ public class PeopleRepositoryAdapter implements PeopleRepository {
     @Override
     public People findByDocument(String document) {
         var peopleEntity = peopleRepositoryMysql.findByDocument(document);
-        return peopleEntity.toDomain();
+        if(peopleEntity.isEmpty()) return null;
+        return peopleEntity.get().toDomain();
     }
 }

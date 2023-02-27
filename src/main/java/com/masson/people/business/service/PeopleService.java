@@ -2,6 +2,8 @@ package com.masson.people.business.service;
 
 import com.masson.people.business.domain.Address;
 import com.masson.people.business.domain.People;
+import com.masson.people.business.exception.PeopleNotFoundException;
+import com.masson.people.business.exception.RegisteredPeopleException;
 import com.masson.people.business.repository.AddressFinder;
 import com.masson.people.business.repository.PeopleProducer;
 import com.masson.people.business.repository.PeopleRepository;
@@ -21,17 +23,27 @@ public class PeopleService {
     private PeopleProducer peopleProducer;
 
     public People create(People people){
+        var peopleFound = peopleRepository.findByDocument(people.getDocument());
+        if(peopleFound != null ) throw new RegisteredPeopleException();
         var addressFound = addressFinder.findByZipCode(people.getAddress().getZipCode());
         return createPeople(mapPeople(people, addressFound));
     }
 
     public People findByDocument(String document){
-        return peopleRepository.findByDocument(document);
+        var peopleFound = peopleRepository.findByDocument(document);
+        if(peopleFound == null) throw new PeopleNotFoundException();
+        return peopleFound;
     }
 
     private People createPeople(People people) {
         var peopleCreated = peopleRepository.save(people);
-        peopleProducer.sendMessage(peopleCreated.getDocument());
+/*
+*
+*       NÃO FUNCIONOU QUANDO SUBIDO VIA DOCKER, SE SUBIR LOCAL FUNCIONA
+*       POR ALGUM MOTIVO NÃO CONSEGUE ESTABELE CONEXÃO
+*
+*/
+//        peopleProducer.sendMessage(peopleCreated.getDocument());
         return peopleCreated;
     }
 

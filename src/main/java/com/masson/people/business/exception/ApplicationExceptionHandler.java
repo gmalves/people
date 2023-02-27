@@ -14,6 +14,10 @@ public class ApplicationExceptionHandler extends ResponseEntityExceptionHandler 
     public ResponseEntity handleException(Exception e){
         if(e.getCause() instanceof ZipCodeNotFoundException){
             return respond(HttpStatus.NOT_FOUND, "CEP não encontrado");
+        } else if (e instanceof RegisteredPeopleException) {
+            return respond(HttpStatus.UNPROCESSABLE_ENTITY, "Pessoa já cadastrada");
+        }else if (e instanceof PeopleNotFoundException) {
+            return respond(HttpStatus.NOT_FOUND, "Pessoa não encontrada");
         }
         return respond(HttpStatus.INTERNAL_SERVER_ERROR, "Erro inesperado");
     }
