@@ -1,7 +1,6 @@
 package com.masson.people.business.exception;
 
 import com.masson.people.business.exception.response.DefaultError;
-import com.masson.people.business.service.PeopleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
