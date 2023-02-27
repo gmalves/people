@@ -1,4 +1,6 @@
 spring:
+  flyway:
+    locations: sql
   jpa:
     hibernate:
       dll-auto: update
