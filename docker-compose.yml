@@ -1,20 +1,20 @@
 version: '3.3'
 services:
-#  app:
-#     build:
-#       context: .
-#       dockerfile: Dockerfile
-#     container_name: people
-#     depends_on:
-#       - db
-#       - kafka
-#     networks:
-#       - general
-#     ports:
-#       - "8080:8080"
-#     environment:
-#       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db?autoReconnect=true&useSSL=false
-#       SPRING_BOOTSTRAP_URL: kafka:9092
+  app:
+     build:
+       context: .
+       dockerfile: Dockerfile
+     container_name: people
+     depends_on:
+       - db
+       - kafka
+     networks:
+       - general
+     ports:
+       - "8080:8080"
+     environment:
+       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db?autoReconnect=true&useSSL=false
+       SPRING_BOOTSTRAP_URL: docker-kafka:9092
 
   db:
     image: mysql:5.7
@@ -42,6 +42,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:latest
+    container_name: docker-kafka
     networks:
       - general
     depends_on:
