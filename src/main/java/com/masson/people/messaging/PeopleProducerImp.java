@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PeopleProducerImp implements PeopleProducer {
 
-    @Value("${topic.people-created}")
+    @Value("${people.topic.people-created}")
     private String topic;
     @Autowired
     private KafkaTemplate<String, String> kafkaTemplate;

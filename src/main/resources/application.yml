@@ -14,8 +14,11 @@ spring:
       bootstrap-servers: ${SPRING_BOOTSTRAP_URL:localhost:9092}
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
-topic:
-  people-created: people-created
+people:
+  url:
+    via-cep: https://viacep.com.br/ws/{zipcode}/json
+  topic:
+    people-created: people-created
 
 loggin:
   level:
