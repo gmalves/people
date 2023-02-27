@@ -1,9 +1,6 @@
 spring:
   flyway:
     locations: sql
-  jpa:
-    hibernate:
-      dll-auto: update
   datasource:
     url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/db?autoReconnect=true&useSSL=false}
     username: root
