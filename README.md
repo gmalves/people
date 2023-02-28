@@ -27,7 +27,8 @@ docker-compose up --build
 
 ## ⌨️  Utilização
 
-Realizar a importação da [Collection](./src/main/resources/collection) no postman para realizar requisições HTTP
+* Realizar a importação da [Collection](./src/main/resources/collection) no postman para realizar requisições HTTP
+* Utilizar o [Kafdrop](http://localhost:19000) para monitoramento do Kafka (ferramenta subirá com docker compose)
 
 ## 🛠️ Construído com
 
